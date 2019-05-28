@@ -43,11 +43,41 @@ export class PictureComponent implements OnInit, OnDestroy {
         this.currentUserSubscription.unsubscribe();
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllAlbums();
+    // deleteUser(id: number) {
+    //     this.userService.delete(id).pipe(first()).subscribe(() => {
+    //         this.loadAllAlbums();
+    //     });
+    // }
+
+    likePicture(picId: Picture) {
+        var formData = new FormData();
+        formData.append('pid', picId.id);
+        formData.append('is_photo', 'true');
+
+        this.userService.like(formData)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.picture.liked = !this.picture.liked
+                    if(this.picture.liked){
+                        this.picture.likes++;
+                    }
+                    else{
+                        this.picture.likes--;
+                    }
+                    console.log(this.picture.likes)
+                },
+                error => {
+                    console.log('error');
+                });
+    }
+
+    deletePicture(id: string) {
+        this.userService.deletePic(id).pipe(first()).subscribe(() => {
+            this.router.navigate(['/'])
         });
     }
+
 
     private loadAllAlbums() {
         this.userService.getPic(this.id).pipe(first()).subscribe(picture => {

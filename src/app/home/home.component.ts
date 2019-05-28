@@ -41,11 +41,44 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(albumId);
         this.router.navigate(['/album/' + albumId + '/pics']);
     }
-    deleteUser(id: number) {
+
+    likeAlbum(picId: Album) {
+        var formData = new FormData();
+        formData.append('pid', picId.id);
+        formData.append('is_photo', 'false');
+
+        this.userService.like(formData)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    var index = this.albums.indexOf(picId)
+                    this.albums[index].liked = !this.albums[index].liked
+                    if(this.albums[index].liked){
+                        this.albums[index].likes++;
+                    }
+                    else{
+                        this.albums[index].likes--;
+                    }
+                    console.log(this.albums[index].likes)
+                },
+                error => {
+                    console.log('error');
+                });
+    }
+
+    deleteAlbum(id: string) {
         this.userService.delete(id).pipe(first()).subscribe(() => {
             this.loadAllAlbums()
         });
     }
+
+
+
+    // deleteUser(id: number) {
+    //     this.userService.delete(id).pipe(first()).subscribe(() => {
+    //         this.loadAllAlbums()
+    //     });
+    // }
 
     private loadAllAlbums() {
         this.userService.getAll().pipe(first()).subscribe(albums => {

@@ -100,12 +100,12 @@
         <div class="desc">{{picture.description}}</div>
         <div class="likes">{{picture.likes}} likes</div>
     </a>
-    <a target="_blank" (click)="like_vaala">
+    <a target="_blank" (click)="likePicture(picture)">
         <div *ngIf="picture.liked" class="like">Unlike!</div>
         <div *ngIf="!picture.liked" class="unlike">Like!</div>
     </a>
 
-    <a (click)="delete_vaala">
+    <a (click)="deletePicture(picture.id)">
         <div *ngIf="picture.mine" class="delete">Delete</div>
     </a>
 

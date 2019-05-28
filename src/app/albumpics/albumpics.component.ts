@@ -13,7 +13,7 @@ export class AlbumpicsComponent implements OnInit, OnDestroy {
     pictures: Picture[] = [];
 
     private sub: any;
-    id:string;
+    id: string;
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -44,15 +44,46 @@ export class AlbumpicsComponent implements OnInit, OnDestroy {
     }
 
     openPicture(picId: string) {
-        console.log(picId)
+        console.log(picId);
         this.router.navigate(['/pic/' + picId]);
     }
 
-    deleteUser(id: number) {
-        this.userService.delete(id).pipe(first()).subscribe(() => {
-            this.loadAllAlbums();
+    likePicture(picId: Picture) {
+        var formData = new FormData();
+        formData.append('pid', picId.id);
+        formData.append('is_photo', 'true');
+
+        this.userService.like(formData)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    var index = this.pictures.indexOf(picId)
+                    this.pictures[index].liked = !this.pictures[index].liked
+                    if(this.pictures[index].liked){
+                        this.pictures[index].likes++;
+                    }
+                    else{
+                        this.pictures[index].likes--;
+                    }
+                    console.log(this.pictures[index].likes)
+                },
+                error => {
+                    console.log('error');
+                });
+    }
+
+    // deleteUser(id: number) {
+    //     this.userService.delete(id).pipe(first()).subscribe(() => {
+    //         this.loadAllAlbums();
+    //     });
+    // }
+
+    deletePicture(id: string) {
+        this.userService.deletePic(id).pipe(first()).subscribe(() => {
+            this.loadAllAlbums()
         });
     }
+
 
     private loadAllAlbums() {
         this.userService.getAlbumPics(this.id).pipe(first()).subscribe(pictures => {

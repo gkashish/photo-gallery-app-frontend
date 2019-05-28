@@ -16,12 +16,11 @@ import {LoginComponent} from './login';
 import {RegisterComponent} from './register';
 import {CreatealbumComponent} from './createalbum';
 import {AlbumsComponent} from './albums/albums.component';
+import {AddpicComponent} from './addpic/addpic.component';
+import {AlbumpicsComponent} from './albumpics/albumpics.component';
+import {PictureComponent} from './picture/picture.component';
+import {EditprofileComponent} from './editprofile/editprofile.component';
 
-;
-import {AddpicComponent} from './addpic/addpic.component';;
-import { AlbumpicsComponent } from './albumpics/albumpics.component'
-;
-import { PictureComponent } from './picture/picture.component'
 @NgModule({
     imports: [
         BrowserModule,
@@ -40,6 +39,7 @@ import { PictureComponent } from './picture/picture.component'
         AddpicComponent,
         AlbumpicsComponent,
         PictureComponent,
+        EditprofileComponent,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

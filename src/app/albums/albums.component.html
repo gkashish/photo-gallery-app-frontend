@@ -104,14 +104,14 @@
         <div class="desc">{{album.description}}</div>
         <div class="likes">{{album.likes}} likes</div>
     </a>
-    <a target="_blank" (click)="like_vaala">
+    <a target="_blank" (click)="likeAlbum(album)">
         <div *ngIf="album.liked" class="like">Unlike!</div>
         <div *ngIf="!album.liked" class="unlike">Like!</div>
     </a>
     <a (click)="addPhoto(album.id)">
         <div class="add">Add Photo</div>
     </a>
-    <a (click)="delete_vaala">
+    <a (click)="deleteAlbum(album.id)">
         <div class="delete">Delete</div>
     </a>
 

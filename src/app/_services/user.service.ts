@@ -10,55 +10,56 @@ export class UserService {
     }
 
     getAll() {
-        // console.log("here6")
-        // var hi = this.http.get(`${environment.apiUrl}/albums/`)
-        // console.log(hi)
         return this.http.get<Album[]>(`${environment.apiUrl}/albums/`);
     }
 
     getPrivateAlbums() {
-        // console.log("here6")
-        // var hi = this.http.get(`${environment.apiUrl}/albums/`)
-        // console.log(hi)
-        return this.http.get<Album[]>(`${environment.apiUrl}/myalbums/`);
-    }
-
-    getAlbumPics(album_id: string) {
-        // console.log("here6")
-        // var hi = this.http.get(`${environment.apiUrl}/albums/`)
-        // console.log(hi)
-        return this.http.get<Picture[]>(`${environment.apiUrl}/albums/` + album_id);
-    }
-
-    getPic(picture_id: string) {
-        // console.log("here6")
-        // var hi = this.http.get(`${environment.apiUrl}/albums/`)
-        // console.log(hi)
-        return this.http.get<Picture>(`${environment.apiUrl}/pic/` + picture_id);
-    }
-
-    getById(id: number) {
-        return this.http.get(`${environment.apiUrl}/users/${id}`);
+        return this.http.get<Album[]>(`${environment.apiUrl}/album/`);
     }
 
     createAlbum(album: FormData) {
-        return this.http.post(`${environment.apiUrl}/newalbum/`, album);
+        return this.http.post(`${environment.apiUrl}/album/`, album);
+    }
+
+    delete(id: string) {
+        return this.http.delete(`${environment.apiUrl}/deletealbum/`+id);
+    }
+
+    getPic(picture_id: string) {
+        return this.http.get<Picture>(`${environment.apiUrl}/pic/` + picture_id);
     }
 
     addPic(album: FormData, album_id: string) {
-        return this.http.post(`${environment.apiUrl}/addphoto/` + album_id, album);
+        return this.http.post(`${environment.apiUrl}/photo/` + album_id, album);
     }
 
+    getAlbumPics(album_id: string) {
+        return this.http.get<Picture[]>(`${environment.apiUrl}/photo/` + album_id);
+    }
+
+    deletePic(id: string) {
+        return this.http.delete(`${environment.apiUrl}/deletepic/`+id);
+    }
+
+    like(data: FormData){
+        return this.http.post(`${environment.apiUrl}/like/`, data);
+    }
 
     register(user: FormData) {
         return this.http.post(`${environment.apiUrl}/register/`, user);
     }
 
-    update(user: User) {
-        return this.http.put(`${environment.apiUrl}/users/${user.id}`, user);
+    deleteUser() {
+        return this.http.delete(`${environment.apiUrl}/deleteuser/`);
     }
 
-    delete(id: number) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`);
+    getProfile(){
+        return this.http.get<User>(`${environment.apiUrl}/user/`)
     }
+
+    // getById(id: number) {
+    //     return this.http.get(`${environment.apiUrl}/users/${id}`);
+    // }
+
 }
+

@@ -9,6 +9,7 @@ import {AuthGuard} from './_guards';
 import {AddpicComponent} from './addpic';
 import {AlbumpicsComponent} from './albumpics';
 import {PictureComponent} from './picture';
+import {EditprofileComponent} from './editprofile';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -16,7 +17,7 @@ const appRoutes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'myalbums', component: AlbumsComponent},
     {path: 'addalbum', component: CreatealbumComponent},
-    // {path: 'editprofile', component: EditprofileComponent},
+    {path: 'editprofile', component: EditprofileComponent},
 
     {path: 'addpic/:id', component: AddpicComponent},
     {path: 'album/:id/pics', component: AlbumpicsComponent},
