@@ -1,25 +1,34 @@
-﻿import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 import {AlertService, UserService, AuthenticationService} from '@app/_services';
-import {User} from '@app/_models';
+import {User, Album} from '@app/_models';
+import {Subscription} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
 
 class ImageSnippet {
     pending: boolean = false;
     status: string = 'init';
 
     constructor(public src: string, public file: File) {
+
     }
 }
 
-@Component({templateUrl: 'register.component.html'})
-export class RegisterComponent implements OnInit {
+@Component({templateUrl: 'addpic.component.html'})
+export class AddpicComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
     selectedFile: ImageSnippet;
     loading = false;
     submitted = false;
+
+    id: string;
+    private sub: any;
+    currentUser: User;
+    currentUserSubscription: Subscription;
+
     picUpload = false;
 
     constructor(
@@ -28,12 +37,12 @@ export class RegisterComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService,
+        private route: ActivatedRoute
         // private imageService: ImageService
     ) {
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
-        }
+        this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+            this.currentUser = user;
+        });
     }
 
 
@@ -55,7 +64,7 @@ export class RegisterComponent implements OnInit {
         const reader = new FileReader();
 
         reader.addEventListener('load', (event: any) => {
-            this.picUpload=true
+            this.picUpload = true;
 
 
             this.selectedFile = new ImageSnippet(event.target.result, file);
@@ -75,15 +84,17 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.registerForm = this.formBuilder.group({
-            username: ['testing', Validators.required],
-            firstName: ['testing', Validators.required],
-            lastName: [''],
-            gender: ['undisclosed'],
-            password: ['testing', [Validators.required, Validators.minLength(6)]],
-            profilePic: [],
+        this.sub = this.route.params.subscribe(params => {
+            this.id = params['id']; // (+) converts string 'id' to a number
 
-    });
+            // In a real app: dispatch action to load the details here.
+        });
+        this.registerForm = this.formBuilder.group({
+            description: [''],
+            privacy: ['private'],
+            picture: [Validators.required],
+
+        });
     }
 
     // convenience getter for easy access to form fields
@@ -92,6 +103,7 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.id);
         this.submitted = true;
         // if(this.registerForm.value.gender=='')
         //   this.registerForm.value.gender='undisclosed'
@@ -101,13 +113,12 @@ export class RegisterComponent implements OnInit {
         }
         var formData = new FormData();
         if (this.picUpload) {
-            formData.append('profilePic', this.selectedFile.file);
+            formData.append('picture', this.selectedFile.file);
+        } else {
+            return;
         }
-        formData.append('username', this.registerForm.value['username']);
-        formData.append('firstName', this.registerForm.value['firstName']);
-        formData.append('lastName', this.registerForm.value['lastName']);
-        formData.append('gender', this.registerForm.value['gender']);
-        formData.append('password', this.registerForm.value['password']);
+        formData.append('description', this.registerForm.value['description']);
+        formData.append('privacy', this.registerForm.value['privacy']);
 
         // this.registerForm['profilePic'] = formData
         console.log(formData);
@@ -119,16 +130,26 @@ export class RegisterComponent implements OnInit {
         // console.log(user)
 
 
-        this.userService.register(formData)
+        this.userService.addPic(formData, this.id)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                    this.alertService.success('Photo Added', true);
+                    this.router.navigate(['myalbums/']);
+                    // this.submitted=false;
+                    // this.picUpload=false;
+                    // this.loading=false;
+                    // this.registerForm['description'].reset()
+
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.currentUserSubscription.unsubscribe();
     }
 }

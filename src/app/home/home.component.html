@@ -13,13 +13,13 @@
 <style>
     div.gallery {
         margin: 5px;
-        border: 1px solid #ccc;
+        border: 2px solid #ccc;
         float: left;
         width: 256px;
     }
 
     div.gallery:hover {
-        border: 1px solid #777;
+        border: 2px solid #777;
         text-underline-mode: false;
     }
 
@@ -51,23 +51,48 @@
     }
 
     div.desc {
-        padding: 12px;
+        padding: 8px;
         text-align: center;
         font-size: medium;
         color: #333333;
     }
-    div.like {
-        passing: 4px;
+
+    div.likes {
+        padding: 4px;
         text-align: center;
-        font-size: large;
+        font-size: small;
+        color: #CC0000;
+    }
+
+    div.like {
+        padding: 4px;
+        text-align: center;
+        font-size: medium;
         color: #FF0000;
         border: 1px solid #ccc;
     }
+
     div.unlike {
-        passing: 4px;
+        padding: 4px;
+        text-align: center;
+        font-size: medium;
+        color: #AA0000;
+        border: 1px solid #ccc;
+    }
+
+    div.delete {
+        padding: 4px;
+        text-align: center;
+        font-size: Large;
+        color: #550000;
+        border: 2px solid #ccc;
+    }
+
+    div.add {
+        padding: 4px;
         text-align: center;
         font-size: large;
-        color: #770000;
+        color: #AA0000;
         border: 1px solid #ccc;
     }
 
@@ -80,16 +105,24 @@
 
 <div *ngFor="let album of albums" class="gallery">
 
-    <a target="_blank" href="album selection vaala">
+    <a target="_blank" (click)="openAlbum(album.id)">
         <img src={{album.coverPic}} width="600" height="400">
         <div class="name">{{album.name}}</div>
         <div class="created">{{album.createdAt}}</div>
         <div class="desc">{{album.description}}</div>
+        <div class="unlike">{{album.likes}} likes</div>
     </a>
     <a target="_blank" href="like_vaala">
         <div *ngIf="album.liked" class="like">Unlike!</div>
         <div *ngIf="!album.liked" class="unlike">Like!</div>
 
+    </a>
+
+    <a (click)="addPhoto(album.id)">
+        <div *ngIf="album.mine" class="add">Add Photo</div>
+    </a>
+    <a (click)="delete_vaala">
+        <div *ngIf="album.mine" class="delete">Delete</div>
     </a>
 
 </div>

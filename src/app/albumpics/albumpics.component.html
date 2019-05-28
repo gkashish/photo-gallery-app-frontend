@@ -86,33 +86,27 @@
 </style>
 
 <h1>Hi {{currentUser.firstName}}!</h1>
-<h3>My Private Albums (Tap to see contents):</h3>
+<h3>Here is your album:</h3>
 <br>
 
 
-<div *ngFor="let album of albums" class="gallery">
+<div *ngFor="let picture of pictures" class="gallery">
 
-    <a target="_blank" (click)="openAlbum(album.id)">
-        <div *ngIf="album.coverPic" class="like">
-            <img src={{album.coverPic}} width="600" height="400">
+    <a target="_blank">
+        <div *ngIf="picture.picture" class="like">
+            <img src={{picture.picture}} width="600" height="400">
         </div>
-        <div *ngIf="!album.coverPic" class="like">
-            <img src="assets/img/default_image.jpg" width="600" height="400">
-        </div>
-        <div class="name">{{album.name}}</div>
-        <div class="created">{{album.createdAt}}</div>
-        <div class="desc">{{album.description}}</div>
-        <div class="likes">{{album.likes}} likes</div>
+        <div class="created">{{picture.createdAt}}</div>
+        <div class="desc">{{picture.description}}</div>
+        <div class="likes">{{picture.likes}} likes</div>
     </a>
     <a target="_blank" (click)="like_vaala">
-        <div *ngIf="album.liked" class="like">Unlike!</div>
-        <div *ngIf="!album.liked" class="unlike">Like!</div>
+        <div *ngIf="picture.liked" class="like">Unlike!</div>
+        <div *ngIf="!picture.liked" class="unlike">Like!</div>
     </a>
-    <a (click)="addPhoto(album.id)">
-        <div class="add">Add Photo</div>
-    </a>
+
     <a (click)="delete_vaala">
-        <div class="delete">Delete</div>
+        <div *ngIf="picture.mine" class="delete">Delete</div>
     </a>
 
 </div>

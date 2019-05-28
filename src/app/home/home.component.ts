@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 
 import { Album, User } from '@app/_models';
 import { UserService, AuthenticationService } from '@app/_services';
+import {Router} from '@angular/router';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     constructor(
         private authenticationService: AuthenticationService,
-        private userService: UserService
+        private userService: UserService,
+        private router: Router
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
             this.currentUser = user;
@@ -27,9 +29,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
-        // this.currentUserSubscription.unsubscribe();
+        this.currentUserSubscription.unsubscribe();
     }
 
+    addPhoto(albumId: string) {
+        console.log(albumId);
+        this.router.navigate(['/addpic/' + albumId]);
+    }
+
+    openAlbum(albumId: string) {
+        console.log(albumId);
+        this.router.navigate(['/album/' + albumId + '/pics']);
+    }
     deleteUser(id: number) {
         this.userService.delete(id).pipe(first()).subscribe(() => {
             this.loadAllAlbums()

@@ -1,8 +1,7 @@
-export class Album {
+export class Picture {
     id: string;
-    name: string;
     description: string;
-    coverPic: string;
+    picture: string;
     likes: number;
     liked: boolean;
     mine: boolean;
