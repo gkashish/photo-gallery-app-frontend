@@ -1,8 +1,116 @@
-﻿<h1>Hi {{currentUser.firstName}}!</h1>
-<h3>All registered users:</h3>
-<ul>
-    <li *ngFor="let user of users">
-        {{user.username}} ({{user.firstName}} {{user.lastName}})
-        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
-    </li>
-</ul>
+﻿
+<!--    <div *ngFor="let album of albums"style="overflow:auto; alignment: left" align="left">-->
+<!--        <img src= {{album.coverPic}} width="256" height="256" >-->
+<!--        <h3 style="text-align:center;float:left;">{{album.name}}</h3>-->
+<!--        <h6 style="text-align:center;float:left;"> Created at: {{album.createdAt}}</h6>-->
+<!--        <h5 style="text-align:center;float:left;">{{album.description}}</h5>-->
+
+<!--        <br>-->
+<!--&lt;!&ndash;        - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>&ndash;&gt;-->
+<!--    </div>-->
+
+
+<style>
+    div.gallery {
+        margin: 5px;
+        border: 1px solid #ccc;
+        float: left;
+        width: 256px;
+    }
+
+    div.gallery:hover {
+        border: 1px solid #777;
+        text-underline-mode: false;
+    }
+
+    div.gallery img {
+        width: 100%;
+        height: auto;
+    }
+
+    a:hover {
+        text-decoration: none;
+        font-weight: bold;
+        background-color: blue;
+        color: #fff;
+    }
+
+    div.name {
+        padding: 2px;
+        text-align: center;
+        color: #111111;
+        font-size: x-large;
+    }
+
+    div.created {
+        padding: 2px;
+        text-align: center;
+        font-size: small;
+        color: #555555;
+
+    }
+
+    div.desc {
+        padding: 12px;
+        text-align: center;
+        font-size: medium;
+        color: #333333;
+    }
+    div.like {
+        passing: 4px;
+        text-align: center;
+        font-size: large;
+        color: #FF0000;
+        border: 1px solid #ccc;
+    }
+    div.unlike {
+        passing: 4px;
+        text-align: center;
+        font-size: large;
+        color: #770000;
+        border: 1px solid #ccc;
+    }
+
+</style>
+
+<h1>Hi {{currentUser.firstName}}!</h1>
+<h3>All Public Albums (Tap to see contents):</h3>
+<br>
+
+
+<div *ngFor="let album of albums" class="gallery">
+
+    <a target="_blank" href="album selection vaala">
+        <img src={{album.coverPic}} width="600" height="400">
+        <div class="name">{{album.name}}</div>
+        <div class="created">{{album.createdAt}}</div>
+        <div class="desc">{{album.description}}</div>
+    </a>
+    <a target="_blank" href="like_vaala">
+        <div *ngIf="album.liked" class="like">Unlike!</div>
+        <div *ngIf="!album.liked" class="unlike">Like!</div>
+
+    </a>
+
+</div>
+
+<!--<div class="gallery">-->
+<!--    <a target="_blank" href="img_forest.jpg">-->
+<!--        <img src="img_forest.jpg" alt="Forest" width="600" height="400">-->
+<!--    </a>-->
+<!--    <div class="desc">Add a description of the image here</div>-->
+<!--</div>-->
+
+<!--<div class="gallery">-->
+<!--    <a target="_blank" href="img_lights.jpg">-->
+<!--        <img src="img_lights.jpg" alt="Northern Lights" width="600" height="400">-->
+<!--    </a>-->
+<!--    <div class="desc">Add a description of the image here</div>-->
+<!--</div>-->
+
+<!--<div class="gallery">-->
+<!--    <a target="_blank" href="img_mountains.jpg">-->
+<!--        <img src="img_mountains.jpg" alt="Mountains" width="600" height="400">-->
+<!--    </a>-->
+<!--    <div class="desc">Add a description of the image here</div>-->
+<!--</div>-->

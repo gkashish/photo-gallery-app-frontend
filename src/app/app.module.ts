@@ -13,7 +13,8 @@ import {AlertComponent} from './_components';
 import {JwtInterceptor, ErrorInterceptor} from './_helpers';
 import {HomeComponent} from './home';
 import {LoginComponent} from './login';
-import {RegisterComponent} from './register';
+import {RegisterComponent} from './register';;
+import { AlbumsComponent } from './albums/albums.component'
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {RegisterComponent} from './register';
     HomeComponent,
     LoginComponent,
     RegisterComponent
-  ],
+,
+    AlbumsComponent  ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
