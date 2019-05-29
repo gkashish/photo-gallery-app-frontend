@@ -84,6 +84,9 @@ export class AlbumpicsComponent implements OnInit, OnDestroy {
         });
     }
 
+    editPicture(id: string) {
+        this.router.navigate(['/editpicture/'+id]);
+    }
 
     private loadAllAlbums() {
         this.userService.getAlbumPics(this.id).pipe(first()).subscribe(pictures => {

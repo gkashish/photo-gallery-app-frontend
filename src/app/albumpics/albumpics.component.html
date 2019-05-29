@@ -105,8 +105,14 @@
         <div *ngIf="!picture.liked" class="unlike">Like!</div>
     </a>
 
+
+    <a (click)="editPicture(picture.id)">
+        <div *ngIf="picture.mine" class="delete">Edit Picture</div>
+    </a>
+
     <a (click)="deletePicture(picture.id)">
         <div *ngIf="picture.mine" class="delete">Delete</div>
     </a>
+
 
 </div>

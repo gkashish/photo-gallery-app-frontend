@@ -106,11 +106,12 @@ export class EditprofileComponent implements OnInit, OnDestroy {
         }
         var formData = new FormData();
         if (this.picUpload) {
-            formData.append('coverPic', this.selectedFile.file);
+            formData.append('profilePic', this.selectedFile.file);
         }
-        formData.append('albumName', this.registerForm.value['albumName']);
-        formData.append('description', this.registerForm.value['description']);
-        formData.append('privacy', this.registerForm.value['privacy']);
+        formData.append('firstName', this.registerForm.value['firstName']);
+        formData.append('gender', this.registerForm.value['gender']);
+        formData.append('lastName', this.registerForm.value['lastName']);
+        formData.append('password', this.registerForm.value['password']);
 
         // this.registerForm['profilePic'] = formData
         console.log(formData);
@@ -122,11 +123,11 @@ export class EditprofileComponent implements OnInit, OnDestroy {
         // console.log(user)
 
 
-        this.userService.createAlbum(formData)
+        this.userService.editProfile(formData)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Album Created', true);
+                    this.alertService.success('Profile Saved', true);
                     this.router.navigate(['/']);
                 },
                 error => {
@@ -139,8 +140,15 @@ export class EditprofileComponent implements OnInit, OnDestroy {
         this.userService.getProfile().pipe(first()).subscribe(user => {
             this.user = user;
 
-            console.log(user);
+            console.log(this.user.gender);
             this.registerForm.setValue({'firstName': this.user.firstName, 'lastName': this.user.lastName, 'password': '', gender: this.user.gender, 'profilePic':''})
+        });
+    }
+    deleteProfile(){
+
+        this.userService.deleteUser().pipe(first()).subscribe(() => {
+            this.authenticationService.logout();
+            this.router.navigate(['/login']);
         });
     }
 

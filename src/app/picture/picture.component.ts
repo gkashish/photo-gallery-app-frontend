@@ -72,6 +72,10 @@ export class PictureComponent implements OnInit, OnDestroy {
                 });
     }
 
+    editPicture(id: string) {
+        this.router.navigate(['/editpicture/'+id]);
+    }
+
     deletePicture(id: string) {
         this.userService.deletePic(id).pipe(first()).subscribe(() => {
             this.router.navigate(['/'])

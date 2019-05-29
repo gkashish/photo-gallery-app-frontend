@@ -110,7 +110,7 @@
         <div class="name">{{album.name}}</div>
         <div class="created">{{album.createdAt}}</div>
         <div class="desc">{{album.description}}</div>
-        <div class="unlike">{{album.likes}} likes</div>
+        <div class="likes">{{album.likes}} likes</div>
     </a>
     <a target="_blank" (click)="likeAlbum(album)">
         <div *ngIf="album.liked" class="like">Unlike!</div>
@@ -121,6 +121,12 @@
     <a (click)="addPhoto(album.id)">
         <div *ngIf="album.mine" class="add">Add Photo</div>
     </a>
+
+
+    <a (click)="editAlbum(album.id)">
+        <div *ngIf="album.mine" class="delete">Edit Album</div>
+    </a>
+
     <a (click)="deleteAlbum(album.id)">
         <div *ngIf="album.mine" class="delete">Delete</div>
     </a>

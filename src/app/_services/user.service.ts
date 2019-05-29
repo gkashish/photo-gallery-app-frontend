@@ -21,6 +21,7 @@ export class UserService {
         return this.http.post(`${environment.apiUrl}/album/`, album);
     }
 
+
     delete(id: string) {
         return this.http.delete(`${environment.apiUrl}/deletealbum/`+id);
     }
@@ -57,6 +58,9 @@ export class UserService {
         return this.http.get<User>(`${environment.apiUrl}/user/`)
     }
 
+    editProfile(album: FormData) {
+        return this.http.put(`${environment.apiUrl}/user/`, album);
+    }
     // getById(id: number) {
     //     return this.http.get(`${environment.apiUrl}/users/${id}`);
     // }

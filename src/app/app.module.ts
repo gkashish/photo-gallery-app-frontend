@@ -20,6 +20,7 @@ import {AddpicComponent} from './addpic/addpic.component';
 import {AlbumpicsComponent} from './albumpics/albumpics.component';
 import {PictureComponent} from './picture/picture.component';
 import {EditprofileComponent} from './editprofile/editprofile.component';
+import {EditalbumComponent} from './editalbum/editalbum.component';
 
 @NgModule({
     imports: [
@@ -40,6 +41,7 @@ import {EditprofileComponent} from './editprofile/editprofile.component';
         AlbumpicsComponent,
         PictureComponent,
         EditprofileComponent,
+        EditalbumComponent
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

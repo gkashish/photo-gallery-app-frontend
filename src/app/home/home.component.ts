@@ -72,6 +72,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
     }
 
+    editAlbum(id: string) {
+        this.router.navigate(['/editalbum/'+id]);
+    }
 
 
     // deleteUser(id: number) {

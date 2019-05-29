@@ -66,6 +66,10 @@ export class AlbumsComponent implements OnInit, OnDestroy {
         });
     }
 
+    editAlbum(id: string) {
+        this.router.navigate(['/editalbum/'+id]);
+    }
+
 
     openAlbum(albumId: string) {
         console.log(albumId);
