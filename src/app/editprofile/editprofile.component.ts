@@ -83,7 +83,7 @@ export class EditprofileComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.getData()
         this.registerForm = this.formBuilder.group({
-            firstName: [],
+            firstName: [Validators.required],
             lastName: [],
             password: [''],
             gender: [],

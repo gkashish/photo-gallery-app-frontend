@@ -11,6 +11,7 @@ import {AlbumpicsComponent} from './albumpics';
 import {PictureComponent} from './picture';
 import {EditprofileComponent} from './editprofile';
 import {EditalbumComponent} from './editalbum';
+import {EditpictureComponent} from './editpicture';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent, canActivate: [AuthGuard]},
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
     {path: 'album/:id/pics', component: AlbumpicsComponent},
     {path: 'pic/:id', component: PictureComponent},
     {path: 'editalbum/:id', component: EditalbumComponent},
+    {path: 'editpicture/:id', component: EditpictureComponent},
 
     // otherwise redirect to home
     {path: '**', redirectTo: ''}

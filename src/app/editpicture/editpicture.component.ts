@@ -1,12 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 import {AlertService, UserService, AuthenticationService} from '@app/_services';
-import {User, Album} from '@app/_models';
+import {User, Album, Picture} from '@app/_models';
 import {Subscription} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
 
 class ImageSnippet {
     pending: boolean = false;
@@ -17,16 +16,20 @@ class ImageSnippet {
     }
 }
 
-@Component({templateUrl: 'addpic.component.html'})
-export class AddpicComponent implements OnInit, OnDestroy {
+@Component({templateUrl: 'editpicture.component.html'})
+export class EditpictureComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
     selectedFile: ImageSnippet;
     loading = false;
     submitted = false;
+    pic: Picture;
 
     id: string;
-    private sub: any;
+
+
     currentUser: User;
+    private sub: any;
+
     currentUserSubscription: Subscription;
 
     picUpload = false;
@@ -37,7 +40,7 @@ export class AddpicComponent implements OnInit, OnDestroy {
         private authenticationService: AuthenticationService,
         private userService: UserService,
         private alertService: AlertService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
         // private imageService: ImageService
     ) {
         this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
@@ -89,11 +92,11 @@ export class AddpicComponent implements OnInit, OnDestroy {
 
             // In a real app: dispatch action to load the details here.
         });
+        this.getData();
         this.registerForm = this.formBuilder.group({
-            description: [''],
-            privacy: ['private'],
-            picture: [Validators.required],
-
+            description: [],
+            privacy: [],
+            picture: []
         });
     }
 
@@ -103,7 +106,6 @@ export class AddpicComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        console.log(this.id);
         this.submitted = true;
         // if(this.registerForm.value.gender=='')
         //   this.registerForm.value.gender='undisclosed'
@@ -114,11 +116,10 @@ export class AddpicComponent implements OnInit, OnDestroy {
         var formData = new FormData();
         if (this.picUpload) {
             formData.append('picture', this.selectedFile.file);
-        } else {
-            return;
         }
-        formData.append('description', this.registerForm.value['description']);
+        formData.append('picId', this.id)
         formData.append('privacy', this.registerForm.value['privacy']);
+        formData.append('description', this.registerForm.value['description']);
 
         // this.registerForm['profilePic'] = formData
         console.log(formData);
@@ -130,22 +131,29 @@ export class AddpicComponent implements OnInit, OnDestroy {
         // console.log(user)
 
 
-        this.userService.addPic(formData, this.id)
+        this.userService.editPic(formData)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Photo Added', true);
-                    history.back();
-                    // this.submitted=false;
-                    // this.picUpload=false;
-                    // this.loading=false;
-                    // this.registerForm['description'].reset()
-
+                    this.alertService.success('Photo Saved', true);
+                    history.back()
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    getData() {
+        this.userService.getPic(this.id).pipe(first()).subscribe(albums => {
+            this.pic =albums
+            console.log(albums)
+            this.registerForm.setValue({
+                'description': this.pic.description,
+                'privacy': this.pic.privacy,
+                'picture': ''
+            });
+        });
     }
 
     ngOnDestroy() {

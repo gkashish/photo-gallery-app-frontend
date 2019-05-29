@@ -1,58 +1,39 @@
-<h2>Register</h2>
-<img src={{user.profilePic}} width="540"><br>
-<div *ngIf="!user.profilePic">
+<h2>Edit Picture</h2>
+<img src={{pic.picture}} width="540"><br>
+<div *ngIf="!pic.picture">
     <img src="assets/img/default_image.jpg" width="600" height="400">
 </div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" formControlName="firstName" class="form-control" (ngModel)="user.firstName"
-               [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
-        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-            <div *ngIf="f.firstName.errors.required">First Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" formControlName="lastName" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"/>
-        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control"
-               [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+        <label for="description">Description</label>
+        <input type="text" formControlName="description" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.description.errors }"/>
+        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required">Description is required</div>
         </div>
     </div>
     <div class="form-group">
         <label class="image-upload-container btn btn-bwm">
-            <span>Select Image </span>
-            <input formControlName="profilePic" #name
+            <span>Select Cover Photo: </span>
+            <input formControlName="picture" #name
                    type="file"
                    accept="image/*"
-                   name="profilePic"
+                   name="picture"
                    (change)="processFile(name)"/>
 
         </label>
     </div>
     <div class="form-group">
-        <label for="gender">Gender </label><br/>
-        <input type="radio" value="male" name="gender" formControlName="gender"> Male
-        <input type="radio" value="female" name="gender" formControlName="gender"> Female
-        <input type="radio" value="undisclosed" name="gender" formControlName="gender"> Prefer not to
-        tell
+        <label for="privacy">Privacy </label><br/>
+        <input type="radio" value="public" name="privacy" formControlName="privacy"> Public
+        <input type="radio" value="link_sharing" name="privacy" formControlName="privacy"> Link Sharing
+        <input type="radio" value="private" name="privacy" formControlName="privacy"> Private
     </div>
     <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">Save</button>
         <img *ngIf="loading" class="pl-3"
              src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
         <a routerLink="/" class="btn btn-link">Cancel</a>
-        <a (click)="deleteProfile()" class="btn btn-danger">Delete Profile</a>
     </div>
 
     <!--  <div *ngIf="selectedFile" class="img-preview-container">-->

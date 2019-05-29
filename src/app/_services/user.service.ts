@@ -21,6 +21,10 @@ export class UserService {
         return this.http.post(`${environment.apiUrl}/album/`, album);
     }
 
+    editAlbum(album: FormData){
+        return this.http.put(`${environment.apiUrl}/album/`, album)
+    }
+
 
     delete(id: string) {
         return this.http.delete(`${environment.apiUrl}/deletealbum/`+id);
@@ -32,6 +36,10 @@ export class UserService {
 
     addPic(album: FormData, album_id: string) {
         return this.http.post(`${environment.apiUrl}/photo/` + album_id, album);
+    }
+
+    editPic(album: FormData) {
+        return this.http.put(`${environment.apiUrl}/photo/0`, album);
     }
 
     getAlbumPics(album_id: string) {
