@@ -105,7 +105,12 @@
 <div *ngFor="let album of albums" class="gallery">
 
     <a target="_blank" (click)="openAlbum(album.id)">
-        <img src={{album.coverPic}} width="600" height="400">
+        <div *ngIf="album.coverPic" class="like">
+            <img src={{album.coverPic}} width="600" height="400">
+        </div>
+        <div *ngIf="!album.coverPic" class="like">
+            <img src="assets/img/default_image.jpg" width="600" height="400">
+        </div>
         <div class="name">{{album.name}}</div>
         <div class="created">{{album.createdAt}}</div>
         <div class="desc">{{album.description}}</div>

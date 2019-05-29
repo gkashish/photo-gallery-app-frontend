@@ -92,7 +92,7 @@
 
 <div class="gallery">
 
-    <a target="_blank" (click)="openPicture(picture.id)">
+    <a target="_blank">
         <div *ngIf="picture.picture" class="like">
             <img src={{picture.picture}} width="600" height="400">
         </div>
@@ -100,7 +100,7 @@
         <div class="desc">{{picture.description}}</div>
         <div class="likes">{{picture.likes}} likes</div>
     </a>
-    <a target="_blank" (click)="like_vaala">
+    <a target="_blank" (click)="likePicture(picture)">
         <div *ngIf="picture.liked" class="like">Unlike!</div>
         <div *ngIf="!picture.liked" class="unlike">Like!</div>
     </a>

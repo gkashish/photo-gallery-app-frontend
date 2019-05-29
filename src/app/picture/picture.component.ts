@@ -88,6 +88,8 @@ export class PictureComponent implements OnInit, OnDestroy {
         });
     }
 
+
+
     private loadAllAlbums() {
         this.userService.getPic(this.id).pipe(first()).subscribe(picture => {
             this.picture = picture;

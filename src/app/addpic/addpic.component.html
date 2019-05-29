@@ -12,7 +12,7 @@
                    accept="image/*"
                    name="picture"
                    (change)="processFile(name)" [ngClass]="{ 'is-invalid': submitted && !picUpload }" class="form-control"/>
-            <div *ngIf=" !picUploaded " class="invalid-feedback">
+            <div *ngIf=" !picUpload " class="invalid-feedback">
                 Picture is required
             </div>
 
