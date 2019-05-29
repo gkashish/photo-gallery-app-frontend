@@ -88,11 +88,20 @@ export class AlbumpicsComponent implements OnInit, OnDestroy {
         this.router.navigate(['/editpicture/'+id]);
     }
 
+    sharePicture(alb: Picture) {
+        this.userService.sharePic(alb.id).pipe(first()).subscribe(albums => {
+            alb.shared=true;
+        });
+    }
+
     private loadAllAlbums() {
         this.userService.getAlbumPics(this.id).pipe(first()).subscribe(pictures => {
             this.pictures = pictures;
 
             console.log(pictures);
+        }, error => {
+            if(error == 'Forbidden')
+                this.authenticationService.logout()
         });
     }
 }

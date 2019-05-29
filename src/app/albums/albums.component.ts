@@ -76,12 +76,21 @@ export class AlbumsComponent implements OnInit, OnDestroy {
         this.router.navigate(['/album/' + albumId + '/pics']);
     }
 
+    shareAlbum(alb: Album) {
+        this.userService.shareAlbum(alb.id).pipe(first()).subscribe(albums => {
+            alb.shared=true;
+        });
+    }
+
 
     private loadAllAlbums() {
         this.userService.getPrivateAlbums().pipe(first()).subscribe(albums => {
             this.albums = albums;
 
             console.log(albums);
+        }, error => {
+            if(error == 'Forbidden')
+                this.authenticationService.logout()
         });
     }
 }

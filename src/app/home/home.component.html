@@ -1,5 +1,4 @@
-﻿
-<!--    <div *ngFor="let album of albums"style="overflow:auto; alignment: left" align="left">-->
+﻿<!--    <div *ngFor="let album of albums"style="overflow:auto; alignment: left" align="left">-->
 <!--        <img src= {{album.coverPic}} width="256" height="256" >-->
 <!--        <h3 style="text-align:center;float:left;">{{album.name}}</h3>-->
 <!--        <h6 style="text-align:center;float:left;"> Created at: {{album.createdAt}}</h6>-->
@@ -126,6 +125,12 @@
     <a (click)="editAlbum(album.id)">
         <div *ngIf="album.mine" class="delete">Edit Album</div>
     </a>
+
+    <a *ngIf="!album.shared" (click)="shareAlbum(album)">
+        <div class="delete">Share Album</div>
+    </a>
+    <div *ngIf="album.shared" class="delete">localhost:4200/album/{{album.id}}/pics</div>
+
 
     <a (click)="deleteAlbum(album.id)">
         <div *ngIf="album.mine" class="delete">Delete</div>

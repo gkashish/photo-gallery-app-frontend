@@ -21,13 +21,17 @@ export class UserService {
         return this.http.post(`${environment.apiUrl}/album/`, album);
     }
 
-    editAlbum(album: FormData){
-        return this.http.put(`${environment.apiUrl}/album/`, album)
+    editAlbum(album: FormData) {
+        return this.http.put(`${environment.apiUrl}/album/`, album);
+    }
+
+    shareAlbum(id: string) {
+        return this.http.get(`${environment.apiUrl}/sharealbum/` + id);
     }
 
 
     delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/deletealbum/`+id);
+        return this.http.delete(`${environment.apiUrl}/deletealbum/` + id);
     }
 
     getPic(picture_id: string) {
@@ -42,15 +46,19 @@ export class UserService {
         return this.http.put(`${environment.apiUrl}/photo/0`, album);
     }
 
+    sharePic(id: string) {
+        return this.http.get(`${environment.apiUrl}/sharepic/` + id);
+    }
+
     getAlbumPics(album_id: string) {
         return this.http.get<Picture[]>(`${environment.apiUrl}/photo/` + album_id);
     }
 
     deletePic(id: string) {
-        return this.http.delete(`${environment.apiUrl}/deletepic/`+id);
+        return this.http.delete(`${environment.apiUrl}/deletepic/` + id);
     }
 
-    like(data: FormData){
+    like(data: FormData) {
         return this.http.post(`${environment.apiUrl}/like/`, data);
     }
 
@@ -62,13 +70,14 @@ export class UserService {
         return this.http.delete(`${environment.apiUrl}/deleteuser/`);
     }
 
-    getProfile(){
-        return this.http.get<User>(`${environment.apiUrl}/user/`)
+    getProfile() {
+        return this.http.get<User>(`${environment.apiUrl}/user/`);
     }
 
     editProfile(album: FormData) {
         return this.http.put(`${environment.apiUrl}/user/`, album);
     }
+
     // getById(id: number) {
     //     return this.http.get(`${environment.apiUrl}/users/${id}`);
     // }

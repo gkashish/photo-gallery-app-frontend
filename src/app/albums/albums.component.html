@@ -116,6 +116,12 @@
         <div class="delete">Edit Album</div>
     </a>
 
+
+    <a *ngIf="!album.shared" (click)="shareAlbum(album)">
+        <div class="delete">Share Album</div>
+    </a>
+    <div *ngIf="album.shared" class="delete">localhost:4200/album/{{album.id}}/pics</div>
+
     <a (click)="deleteAlbum(album.id)">
         <div class="delete">Delete</div>
     </a>

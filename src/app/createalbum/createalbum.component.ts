@@ -128,8 +128,12 @@ export class CreatealbumComponent implements OnInit, OnDestroy {
                     this.router.navigate(['/']);
                 },
                 error => {
-                    this.alertService.error(error);
-                    this.loading = false;
+                    if(error == 'Forbidden')
+                        this.authenticationService.logout()
+                    else {
+                        this.alertService.error(error);
+                        this.loading = false;
+                    }
                 });
     }
 

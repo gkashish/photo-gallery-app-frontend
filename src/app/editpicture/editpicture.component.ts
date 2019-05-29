@@ -153,6 +153,9 @@ export class EditpictureComponent implements OnInit, OnDestroy {
                 'privacy': this.pic.privacy,
                 'picture': ''
             });
+        }, error => {
+            if(error == 'Forbidden')
+                this.authenticationService.logout()
         });
     }
 

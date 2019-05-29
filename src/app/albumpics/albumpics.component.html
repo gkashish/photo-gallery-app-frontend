@@ -105,10 +105,16 @@
         <div *ngIf="!picture.liked" class="unlike">Like!</div>
     </a>
 
-
     <a (click)="editPicture(picture.id)">
         <div *ngIf="picture.mine" class="delete">Edit Picture</div>
     </a>
+
+
+    <a *ngIf="!picture.shared" (click)="sharePicture(picture)">
+        <div class="delete">Share Picture</div>
+    </a>
+    <div *ngIf="picture.shared" class="delete">localhost:4200/pic/{{picture.id}}</div>
+
 
     <a (click)="deletePicture(picture.id)">
         <div *ngIf="picture.mine" class="delete">Delete</div>

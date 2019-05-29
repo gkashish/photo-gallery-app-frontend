@@ -142,6 +142,9 @@ export class EditprofileComponent implements OnInit, OnDestroy {
 
             console.log(this.user.gender);
             this.registerForm.setValue({'firstName': this.user.firstName, 'lastName': this.user.lastName, 'password': '', gender: this.user.gender, 'profilePic':''})
+        }, error => {
+            if(error == 'Forbidden')
+                this.authenticationService.logout()
         });
     }
     deleteProfile(){

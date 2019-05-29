@@ -163,6 +163,9 @@ export class EditalbumComponent implements OnInit, OnDestroy {
                 'privacy': this.album.privacy,
                 'coverPic': ''
             });
+        }, error => {
+            if(error == 'Forbidden')
+                this.authenticationService.logout()
         });
     }
 

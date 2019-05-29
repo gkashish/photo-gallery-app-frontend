@@ -127,7 +127,11 @@ export class RegisterComponent implements OnInit {
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    this.alertService.error(error);
+                    console.log(error)
+                    if(error == 'Bad Request')
+                        this.alertService.error("Username already exists")
+                    else
+                        this.alertService.error(error);
                     this.loading = false;
                 });
     }

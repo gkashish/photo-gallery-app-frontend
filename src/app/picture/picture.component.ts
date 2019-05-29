@@ -82,12 +82,20 @@ export class PictureComponent implements OnInit, OnDestroy {
         });
     }
 
+    sharePicture(alb: Picture) {
+        this.userService.sharePic(alb.id).pipe(first()).subscribe(albums => {
+            alb.shared=true;
+        });
+    }
 
     private loadAllAlbums() {
         this.userService.getPic(this.id).pipe(first()).subscribe(picture => {
             this.picture = picture;
 
             console.log(picture);
+        }, error => {
+            if(error == 'Forbidden')
+                this.authenticationService.logout()
         });
     }
 }

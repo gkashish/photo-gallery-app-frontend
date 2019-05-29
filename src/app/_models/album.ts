@@ -7,4 +7,5 @@ export class Album {
     liked: boolean;
     mine: boolean;
     privacy: string;
+    shared: boolean = false;
 }

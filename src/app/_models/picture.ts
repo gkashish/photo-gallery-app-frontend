@@ -6,4 +6,5 @@ export class Picture {
     liked: boolean;
     mine: boolean;
     privacy: string;
+    shared: boolean = false;
 }
