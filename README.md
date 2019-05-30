@@ -1,5 +1,6 @@
 # CodeChef Photo Gallery
 Frontend of photo gallery app made for CodeChef Summer Internship 2019.
+The application is hosted at [link](https://gkashish.github.io/photo-gallery-app-frontend/).
 
 ## How to Run the Code?
 This section describes how the app can be viewed in action.
@@ -38,6 +39,10 @@ Once the application is running, go to [link](http://localhost:4200/).
 ### Done - A photo should be removable (delete)
 ### Done - A photo can be public/private/only people with the url can view (privacy setting)
 ### Done - A photo can be liked by a logged in user.
+
+## Bonus
+### Done - Token Based Authentication
+### Done - Hosted on public url
 
 ## User
 ### Done - User module should contain username, First name, last name, gender, profile picture, password
