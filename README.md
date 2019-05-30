@@ -1,6 +1,7 @@
 # CodeChef Photo Gallery
 Frontend of photo gallery app made for CodeChef Summer Internship 2019.
-The application is hosted at [link](https://gkashish.github.io/photo-gallery-app-frontend/).
+
+## The application is hosted at [link](https://gkashish.github.io/photo-gallery-app-frontend/).
 
 ## How to Run the Code?
 This section describes how the app can be viewed in action.
